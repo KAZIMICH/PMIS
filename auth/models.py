@@ -1,0 +1,1 @@
+# ORM-класс User: id, login, hash_password, роли

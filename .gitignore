@@ -1,2 +1,11 @@
 # Project exclude paths
-/logs/
+__pycache__/
+logs/
+*.pyc
+*.pyo
+*.log
+/.idea/
+/idea/
+/venv/
+*application.log
+/build/

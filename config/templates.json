@@ -1,0 +1,5 @@
+{
+  "path": "config/templates.json",
+  "comment": "Словарь “имя шаблона → UNC-путь” для GUI и backend"
+}
+

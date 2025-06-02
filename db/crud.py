@@ -4,7 +4,7 @@
 from typing import Type, TypeVar, Generic, Optional, List
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
-from db.models import Base, ProjType, VesselType, ClassSociety
+from db.models import Base, ProjType, VesselType, ClassSociety, NewLifeCycle, RefitLifeCycle, ProjTemplates
 
 # Определяем обобщённый тип модели
 ModelType = TypeVar('ModelType', bound=Base)
@@ -55,7 +55,6 @@ class BaseRepository(Generic[ModelType]):
             return existing
         return self.create(**{unique_field: value}, **kwargs)
 
-
 class ProjTypeRepository(BaseRepository[ProjType]):
     """Репозиторий для работы с ProjType"""
     def __init__(self, session: Session) -> None:
@@ -66,7 +65,6 @@ class ProjTypeRepository(BaseRepository[ProjType]):
 
     def create_proj_types(self, name: str, description: Optional[str] = None) -> ProjType:
         return self.get_or_create('proj_type_name', name, description=description)
-
 
 class VesselTypeRepository(BaseRepository[VesselType]):
     """Репозиторий для работы с VesselType"""
@@ -89,4 +87,41 @@ class ClassSocietyRepository(BaseRepository[ClassSociety]):
 
     def create_class_society_name(self, name: str, description: Optional[str] = None) -> ClassSociety:
         return self.get_or_create('class_society_name', name, description=description)
+
+class NewLifeCycleRepository(BaseRepository[NewLifeCycle]):
+    """Репозиторий для работы с NewLifeCycle"""
+    def __init__(self, session: Session) -> None:
+        super().__init__(NewLifeCycle, session)
+
+    def get_by_name(self, name: str) -> Optional[NewLifeCycle]:
+        return self.get_by_field('new_life_cycle_name', name)
+
+    def create_new_life_cycle_name(self, name: str, description: Optional[str] = None) -> NewLifeCycle:
+        return self.get_or_create('new_life_cycle_name', name, description=description)
+
+class RefitLifeCycleRepository(BaseRepository[RefitLifeCycle]):
+    """Репозиторий для работы с RefitLifeCycle"""
+    def __init__(self, session: Session) -> None:
+        super().__init__(RefitLifeCycle, session)
+
+    def get_by_name(self, name: str) -> Optional[RefitLifeCycle]:
+        return self.get_by_field('refit_life_cycle_name', name)
+
+    def create_refit_life_cycle_name(self, name: str, description: Optional[str] = None) -> RefitLifeCycle:
+        return self.get_or_create('refit_life_cycle_name', name, description=description)
+
+class ProjTemplateRepository(BaseRepository[ProjTemplates]):
+    """Репозиторий для работы с ProjTemplates"""
+    def __init__(self, session: Session) -> None:
+        super().__init__(ProjTemplates, session)
+
+    def get_by_name(self, name: str) -> Optional[ProjTemplates]:
+        return self.get_by_field('proj_template_name_ru', name)
+
+    def create_proj_template(
+            self,
+            name_ru: str,
+            name_en: str
+            description: Optional[str] = None) -> ProjTemplates:
+        return self.get_or_create('proj_template_name_ru', name, description=description)
 

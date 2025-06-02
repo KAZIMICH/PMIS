@@ -21,7 +21,6 @@ class ProjType(Base):
     def __repr__(self) -> str:
         return f"<ProjType(id={self.id}, proj_type_name={self.proj_type_name})>"
 
-
 class VesselType(Base):
     """
     Типы судов.
@@ -35,7 +34,6 @@ class VesselType(Base):
     def __repr__(self) -> str:
         return f"<VesselType(id={self.id}, vessel_type_name={self.vessel_type_name})>"
 
-
 class ClassSociety(Base):
     """
     Классификационные общества.
@@ -49,16 +47,50 @@ class ClassSociety(Base):
     def __repr__(self) -> str:
         return f"<ClassSociety(id={self.id}, class_society_name={self.class_society_name})>"
 
-
-class ClassSociety(Base):
+class NewLifeCycle(Base):
     """
-    Классификационные общества.
+    Жизненные циклы проекта нового судна.
     """
-    __tablename__ = 'class_societys'
+    __tablename__ = 'new_life_cycle'
 
     id: int = Column(Integer, primary_key=True, autoincrement=True)
-    class_society_name: str = Column(String(100), nullable=False, unique=True, comment="Название классификационного общества")
-    description: str = Column(String(255), nullable=True, comment="Описание классификационного общества")
+    new_life_cycle_name: str = Column(String(100), nullable=False, unique=True, comment="Название жизненного цикла")
+    description: str = Column(String(255), nullable=True, comment="Описание жизненного цикла")
 
     def __repr__(self) -> str:
-        return f"<ClassSociety(id={self.id}, class_society_name={self.class_society_name})>"
+        return f"<NewLifeCycle(id={self.id}, new_life_cycle_name={self.new_life_cycle_name})>"
+
+class RefitLifeCycle(Base):
+    """
+    Жизненные циклы проекта переоборудования.
+    """
+    __tablename__ = 'refit_life_cycle'
+
+    id: int = Column(Integer, primary_key=True, autoincrement=True)
+    refit_life_cycle_name: str = Column(String(100), nullable=False, unique=True, comment="Название жизненного цикла")
+    description: str = Column(String(255), nullable=True, comment="Описание жизненного цикла")
+
+    def __repr__(self) -> str:
+        return f"<RefitLifeCycle(id={self.id}, refit_life_cycle_name={self.refit_life_cycle_name})>"
+
+class ProjTemplates(Base):
+    """
+    Шаблоны проектов.
+    """
+    __tablename__ = 'proj_templates'
+
+    id: int = Column(Integer, primary_key=True, autoincrement=True)
+    proj_template_name_ru: str = Column(String(255), nullable=False, unique=True,
+                                        comment="Название шаблона проекта на русском")
+    proj_template_name_en: str = Column(String(255), nullable=True, unique=True,
+                                        comment="Название шаблона проекта на английском")
+    proj_template_path: str = Column(String(255), nullable=False, unique=True,
+                                     comment="Сетевой путь к шаблону")
+    proj_template_reviewed_: str = Column(String(255), nullable=True,
+                                          comment="Подлежит или нет к рассмотрению в Классификационном обществе")
+    description: str = Column(String(255), nullable=True,
+                              comment="Описание шаблона проекта, ссылка на нормативку")
+
+    def __repr__(self) -> str:
+        return f"<ProjTemplates(id={self.id}, proj_template_name_ru={self.proj_template_name_ru})>"
+

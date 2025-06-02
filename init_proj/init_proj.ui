@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MW_init_proj</class>
+ <widget class="QMainWindow" name="MW_init_proj">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1031</width>
+    <height>645</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Дата создания проекта</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>№ проекта</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Объект проекта</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Название проекта</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Тип проекта</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Описание проекта</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>340</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Путь проекта</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="PTE_date">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>60</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="plainText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Дата создания проекта ДД.ММ.ГГГГ</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="PTE_proj_number">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>100</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="plainText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>XXXXX</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="PTE_proj_object">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>140</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="plainText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Объект проекта</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="PTE_proj_name">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>180</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="plainText">
+     <string>Новое судно</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="PTE_proj_type">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>220</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="plainText">
+     <string>НОВОЕ СУДНО</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="PTE_proj_description">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>300</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="plainText">
+     <string>при необходимости...</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="PTE_proj_path">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>340</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="plainText">
+     <string>\\192.168.1.98\project</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>140</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #0078d7;  /* синий фон */
+    color: white;               /* белый текст */
+    padding: 6px 12px;          /* отступы внутри */
+    border: 1px solid #005a9e;  /* тёмно-синяя рамка */
+    border-radius: 8px;         /* закруглённые углы */</string>
+    </property>
+    <property name="text">
+     <string>Сведения</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>340</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #0078d7;  /* синий фон */
+    color: white;               /* белый текст */
+    padding: 6px 12px;          /* отступы внутри */
+    border: 1px solid #005a9e;  /* тёмно-синяя рамка */
+    border-radius: 8px;         /* закруглённые углы */</string>
+    </property>
+    <property name="text">
+     <string>Выбрать путь</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>100</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #0078d7;  /* синий фон */
+    color: white;               /* белый текст */
+    padding: 6px 12px;          /* отступы внутри */
+    border: 1px solid #005a9e;  /* тёмно-синяя рамка */
+    border-radius: 8px;         /* закруглённые углы */</string>
+    </property>
+    <property name="text">
+     <string>Открыть журнал</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Шаблон проекта</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>260</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 2px solid #000000;
+border-radius: 3px;
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>410</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* отступ со всех сторон: */
+padding: 6px;
+/* можно также задать рамку, если нужно */
+border: 1px solid #ccc;
+border-radius: 3px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::WinPanel</enum>
+    </property>
+    <property name="text">
+     <string>Путь проекта</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>440</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Narrow</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #0078d7;  /* синий фон */
+    color: white;               /* белый текст */
+    padding: 6px 12px;          /* отступы внутри */
+    border: 1px solid #005a9e;  /* тёмно-синяя рамка */
+    border-radius: 8px;         /* закруглённые углы */</string>
+    </property>
+    <property name="text">
+     <string>Выбрать путь</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

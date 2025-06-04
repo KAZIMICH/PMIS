@@ -121,7 +121,17 @@ class ProjTemplateRepository(BaseRepository[ProjTemplates]):
     def create_proj_template(
             self,
             name_ru: str,
-            name_en: str
+            name_en: Optional[str],
+            reviewed: Optional[str],
+            path: str,
             description: Optional[str] = None) -> ProjTemplates:
-        return self.get_or_create('proj_template_name_ru', name, description=description)
+        """Создаёт запись шаблона проекта или возвращает существующую."""
+        return self.get_or_create(
+            'proj_template_name_ru',
+            name_ru,
+            proj_template_name_en=name_en,
+            proj_template_reviewed_=reviewed,
+            proj_template_path=path,
+            description=description,
+        )
 

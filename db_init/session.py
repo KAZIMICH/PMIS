@@ -1,9 +1,9 @@
-# db/session.py
+# db_init/session.py
 # Настройка и создание SQLAlchemy Session 🎛️
 
 from typing import Generator, Optional
 from sqlalchemy.orm import sessionmaker, Session
-from db.connection import get_engine
+from db_init.connection import get_engine
 from utils.logger import LoggerManager
 
 # Инициализация логгера для модуля

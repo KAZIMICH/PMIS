@@ -1,4 +1,4 @@
-# db/models.py
+# db_init/models.py
 # Определение ORM-моделей и Declarative Base 📦
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -80,11 +80,14 @@ class ProjTemplates(Base):
     __tablename__ = 'proj_templates'
 
     id: int = Column(Integer, primary_key=True, autoincrement=True)
-    proj_template_name_ru: str = Column(String(255), nullable=False, unique=True,
+
+    part_rules: str = Column(String(255), comment="Часть правил")
+
+    proj_template_name_ru: str = Column(String(255), nullable=False,
                                         comment="Название шаблона проекта на русском")
-    proj_template_name_en: str = Column(String(255), nullable=True, unique=True,
+    proj_template_name_en: str = Column(String(255), nullable=True,
                                         comment="Название шаблона проекта на английском")
-    proj_template_path: str = Column(String(255), nullable=False, unique=True,
+    proj_template_path: str = Column(String(255), nullable=False,
                                      comment="Сетевой путь к шаблону")
     proj_template_reviewed_: str = Column(String(255), nullable=True,
                                           comment="Подлежит или нет к рассмотрению в Классификационном обществе")

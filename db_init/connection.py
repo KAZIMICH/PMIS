@@ -1,10 +1,10 @@
-# db/connection.py
+# db_init/connection.py
 # Настройка и создание SQLAlchemy Engine 💾
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from utils.logger import LoggerManager
-from db.config import DATABASE_URL, ECHO_SQL  # Статические настройки проекта
+from db_init.config import DATABASE_URL, ECHO_SQL  # Статические настройки проекта
 
 # Получаем логгер для модуля
 logger = LoggerManager(__name__).get_logger()

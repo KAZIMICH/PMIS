@@ -1,11 +1,11 @@
-# db/init_db.py
+# db_init/init_db.py
 # Скрипт инициализации базы данных проекта через SQLite
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from utils.logger import LoggerManager
-from db.models import Base  # 📂 Импорт декларативной базы моделей
-from db.config import DATABASE_URL  # URL подключения к SQLite БД (файл)
+from db_init.models import Base  # 📂 Импорт декларативной базы моделей
+from db_init.config import DATABASE_URL  # URL подключения к SQLite БД (файл)
 
 
 class DBInitializer:

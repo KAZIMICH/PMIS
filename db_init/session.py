@@ -5,6 +5,7 @@ from typing import Generator, Optional
 from sqlalchemy.orm import sessionmaker, Session
 from db_init.connection import get_engine
 from utils.logger import LoggerManager
+from contextlib import contextmanager
 
 # Инициализация логгера для модуля
 logger = LoggerManager(__name__).get_logger()
@@ -17,9 +18,12 @@ SessionLocal = sessionmaker(
     future=True
 )
 
+@contextmanager
+
 def get_db() -> Generator[Session, None, None]:
     """
     Генератор сессии SQLAlchemy для использования в бизнес-логике.
+
     Используется как контекстный менеджер:
     with get_db() as session:
         ...

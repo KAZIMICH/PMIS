@@ -1,11 +1,115 @@
-# scripts/seed.py
+# db_init/seed.py
 # Скрипт наполнения базовых данных (seeding) 🌱
 
 from db_init.session import SessionLocal
-from db_init.crud import (ProjTypeRepository, VesselTypeRepository, ClassSocietyRepository, NewLifeCycleRepository,
-                          RefitLifeCycleRepository, ProjTemplateRepository)
+import db_init.crud as repos
+from datetime import datetime
 
+# пользователи компании
+def seed_users():
+    session = SessionLocal()
+    try:
+        users_data = [
+            ("Дмитриев", "hull@adomat.ru", "Алексей", "Анатольевич", "0000000000", True, datetime(2014, 3, 15), [0000], [2], [2]),
+            ("Федюнин", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Сергеев", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Сербовка", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Макарова", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Дубинин", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Власов", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Михин", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Райкевич", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Евстратов", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+            ("Семуха", "info@adomat.ru", "Дмитрий", "Семуха", "0000000000", True, datetime(2016, 8, 1), [1919], [3], [1]),
+        ]
 
+        repo = repos.UserRepository(session)
+        for username, email, first_name, last_name, phone, is_active, date_of_employment, password_hash, roles, deps in users_data:
+            repo.create_or_update_user(
+                username=username,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                phone=phone,
+                is_active=is_active,
+                date_of_employment=date_of_employment,
+                password_hash="12345",
+                roles=roles,
+                departments=deps
+            )
+
+        session.commit()
+        print("✔️ Таблица users заполнена данными")
+    except Exception as e:
+        session.rollback()
+        print(f"❌ Ошибка при заполнении users: {e}")
+        raise
+    finally:
+        session.close()
+
+# отделы компании
+def seed_departments() -> None:
+    """
+    Наполняет таблицу departments начальными данными.
+    """
+    session = SessionLocal()
+    try:
+        # Список отделов компании
+        types_data = [
+            ("00. АУП", "Административно-управленческий персонал"),
+            ("01. Отдел корпус", ""),
+            ("02. Отдел механика", ""),
+            ("03. Отдел электрика", "")
+        ]
+        repo = repos.DepartmentRepository(session)
+        for name, desc in types_data:
+            repo.create_department(name, desc)
+
+        session.commit()
+        print("✔️ Таблица departments заполнена данными")
+    except Exception as e:
+        session.rollback()
+        print(f"❌ Ошибка при заполнении departments: {e}")
+        raise
+    finally:
+        session.close()
+# роли в компании
+def seed_roles() -> None:
+    """
+    Наполняет таблицу roles начальными данными.
+    """
+    session = SessionLocal()
+    try:
+        # Список ролей
+        types_data = [
+            ("00. Администратор", ""),
+            ("01. Директор", ""),
+            ("02. Соучредитель", ""),
+            ("03. Проектный офис", ""),
+            ("04. Бухгалтер", ""),
+            ("05. Экономист", ""),
+            ("06. Ведущий специалист", ""),
+            ("07. Специалист", ""),
+            ("08. Стажер", ""),
+            ("09. Клиент", ""),
+            ("10. Контрагент", ""),
+            ("11. Гость", ""),
+            ("12. Соискатель", ""),
+        ]
+        repo = repos.RoleRepository(session)
+        for name, desc in types_data:
+            repo.create_role(name, desc)
+
+        session.commit()
+        print("✔️ Таблица roles заполнена данными")
+    except Exception as e:
+        session.rollback()
+        print(f"❌ Ошибка при заполнении roles: {e}")
+        raise
+    finally:
+        session.close()
+
+# тип проекта
 def seed_proj_types() -> None:
     """
     Наполняет таблицу proj_type начальными данными.
@@ -19,7 +123,7 @@ def seed_proj_types() -> None:
             ("02. РАЗВИТИЕ", "Проекты, направленные на развитие компании"),
             ("03. АДМИНИСТРАТИВКА", "Проект для учета административных потерь времени"),
         ]
-        repo = ProjTypeRepository(session)
+        repo = repos.ProjTypeRepository(session)
         for name, desc in types_data:
             repo.create_proj_types(name, desc)
 
@@ -30,81 +134,34 @@ def seed_proj_types() -> None:
         print(f"❌ Ошибка при заполнении proj_type: {e}")
         raise
     finally:
-        session.close()
-
-def seed_vessel_types() -> None:
+        session.close() #
+# статус проекта нового судна
+def seed_new_proj_status() -> None:
     """
-    Наполняет таблицу vessel_type начальными данными.
-    """
-    session = SessionLocal()
-    try:
-        # Список типов судов для вставки
-        types_data = [
-            ("00. АДОМАТ", ""),
-            ("00. СЕРИИ СУДОВ", ""),
-            ("01. НЕФТЕНАЛИВНЫЕ", ""),
-            ("02. НЕФТЕНАЛИВНЫЕ - ХИМОВОЗЫ", ""),
-            ("03. ХИМОВОЗЫ", ""),
-            ("04. ГАЗОВОЗЫ", ""),
-            ("05. НАЛИВНЫЕ ПРОЧИЕ", ""),
-            ("06. НЕФТЕНАВАЛОЧНЫЕ И НЕФТЕРУДОВОЗЫ", ""),
-            ("07. РУДОВОЗЫ И НАВАЛОЧНЫЕ", ""),
-            ("08. СУДА ДЛЯ ГЕНГРУЗА", ""),
-            ("09. ГРУЗОПАССАЖИРСКИЕ", ""),
-            ("10. КОНТЕЙНЕРНЫЕ, БАРЖЕВОЗЫ, ДОКОВЫЕ", ""),
-            ("11. СУДА ДЛЯ ПЕРЕВОЗКИ ТРАНСПОРТНЫХ СРЕДСТВ", ""),
-            ("12. РЫБОПРОМЫСЛОВЫЕ БАЗЫ, РЫБОТРАНСПОРТНЫЕ СУДА", ""),
-            ("13.1 РЫБОПРОМЫСЛОВЫЕ более 45 м", ""),
-            ("13.2 РЫБОПРОМЫСЛОВЫЕ менее 45 м", ""),
-            ("14. ПАССАЖИРСКИЕ И ПАССАЖИРСКИЕ БЕСКОЕЧНЫЕ", ""),
-            ("15. СУДА ОБЕСПЕЧЕНИЯ", ""),
-            ("16. БУКСИРЫ", ""),
-            ("17. ЗЕМСНАРЯДЫ И ЗЕМЛЕСОСЫ", ""),
-            ("18. РЕФРИЖЕРАТОРНЫЕ", ""),
-            ("19. ЛЕДОКОЛЫ", ""),
-            ("20. НАУЧНО-ИССЛЕДОВАТЕЛЬСКИЕ", ""),
-            ("21. ПРОЧИЕ", ""),
-            ("22. МАЛОМЕРНЫЕ, ПРОГУЛОЧНЫЕ", ""),
-            ("24. ПАРУСНЫЕ, УЧЕБНЫЕ", ""),
-        ]
-        repo = VesselTypeRepository(session)
-        for name, desc in types_data:
-            repo.create_vessel_types(name, desc)
-
-        session.commit()
-        print("✔️ Таблица vessel_type заполнена данными")
-    except Exception as e:
-        session.rollback()
-        print(f"❌ Ошибка при заполнении vessel_type: {e}")
-        raise
-    finally:
-        session.close()
-
-def seed_class_societys() -> None:
-    """
-    Наполняет таблицу class_societys начальными данными.
+    Наполняет таблицу new_proj_status начальными данными.
     """
     session = SessionLocal()
     try:
-        # Список Классификационных обществ
+        # Список статусов проекта нового судна
         types_data = [
-            ("01. РС", "Российский Морской Регистр Судоходства"),
-            ("02. РКО", "Российское Классификационное общество"),
-            ("03. Прочее", "Прочие Классификационные общества"),
+            ("не начат", ""),
+            ("в работе", ""),
+            ("отложен", ""),
+            ("отменен", "")
         ]
-        repo = ClassSocietyRepository(session)
+        repo = repos.NewProjStatusRepository(session)
         for name, desc in types_data:
-            repo.create_class_society_name(name, desc)
+            repo.create_new_proj_status(name, desc)
 
         session.commit()
-        print("✔️ Таблица class_societys заполнена данными")
+        print("✔️ Таблица new_proj_status заполнена данными")
     except Exception as e:
         session.rollback()
-        print(f"❌ Ошибка при заполнении class_societys: {e}")
+        print(f"❌ Ошибка при заполнении new_proj_status: {e}")
         raise
     finally:
         session.close()
-
+# жизненный цикл проекта нового судна
 def seed_new_life_cycle() -> None:
     """
     Наполняет таблицу new_lify_cycle начальными данными.
@@ -121,7 +178,7 @@ def seed_new_life_cycle() -> None:
             ("06. ЭД", "Эксплуатационная документация"),
             ("07. АРХИВ", "Все закрывающие документы и архив проекта"),
         ]
-        repo = NewLifeCycleRepository(session)
+        repo = repos.NewLifeCycleRepository(session)
         for name, desc in types_data:
             repo.create_new_life_cycle_name(name, desc)
 
@@ -133,7 +190,33 @@ def seed_new_life_cycle() -> None:
         raise
     finally:
         session.close()
+# статус проекта переоборудования
+def seed_refit_proj_status() -> None:
+    """
+    Наполняет таблицу refit_proj_status начальными данными.
+    """
+    session = SessionLocal()
+    try:
+        # Список статусов проекта переоборудования
+        types_data = [
+            ("не начат", ""),
+            ("в работе", ""),
+            ("отложен", ""),
+            ("отменен", "")
+        ]
+        repo = repos.RefitProjStatusRepository(session)
+        for name, desc in types_data:
+            repo.create_refit_proj_status(name, desc)
 
+        session.commit()
+        print("✔️ Таблица refit_proj_status заполнена данными")
+    except Exception as e:
+        session.rollback()
+        print(f"❌ Ошибка при заполнении refit_proj_status: {e}")
+        raise
+    finally:
+        session.close()
+# жизненный цикл переоборудования
 def seed_refit_life_cycle() -> None:
     """
     Наполняет таблицу refit_life_cycle начальными данными.
@@ -150,7 +233,7 @@ def seed_refit_life_cycle() -> None:
             ("06. ОПЛАТА", "Проект на этапе оплаты Заказчиком"),
             ("07. АРХИВ", "Проект в архив"),
         ]
-        repo = RefitLifeCycleRepository(session)
+        repo = repos.RefitLifeCycleRepository(session)
         for name, desc in types_data:
             repo.create_refit_life_cycle_name(name, desc)
 
@@ -162,7 +245,7 @@ def seed_refit_life_cycle() -> None:
         raise
     finally:
         session.close()
-
+# шаблоны проектов
 def seed_proj_template() -> None:
     """
     Наполняет таблицу proj_template начальными данными.
@@ -401,7 +484,7 @@ def seed_proj_template() -> None:
                 "Согласно требований SOLAS Chapter III regulation 17-1"
             ),
         ]
-        repo = ProjTemplateRepository(session)
+        repo = repos.ProjTemplateRepository(session)
         for part_rules, name_ru, name_en, reviewed, path, desc in types_data:
             repo.create_proj_template(
                 name_ru,
@@ -420,11 +503,91 @@ def seed_proj_template() -> None:
     finally:
         session.close()
 
+# тип судна
+def seed_vessel_types() -> None:
+    """
+    Наполняет таблицу vessel_type начальными данными.
+    """
+    session = SessionLocal()
+    try:
+        # Список типов судов для вставки
+        types_data = [
+            ("00. АДОМАТ", ""),
+            ("00. СЕРИИ СУДОВ", ""),
+            ("01. НЕФТЕНАЛИВНЫЕ", ""),
+            ("02. НЕФТЕНАЛИВНЫЕ - ХИМОВОЗЫ", ""),
+            ("03. ХИМОВОЗЫ", ""),
+            ("04. ГАЗОВОЗЫ", ""),
+            ("05. НАЛИВНЫЕ ПРОЧИЕ", ""),
+            ("06. НЕФТЕНАВАЛОЧНЫЕ И НЕФТЕРУДОВОЗЫ", ""),
+            ("07. РУДОВОЗЫ И НАВАЛОЧНЫЕ", ""),
+            ("08. СУДА ДЛЯ ГЕНГРУЗА", ""),
+            ("09. ГРУЗОПАССАЖИРСКИЕ", ""),
+            ("10. КОНТЕЙНЕРНЫЕ, БАРЖЕВОЗЫ, ДОКОВЫЕ", ""),
+            ("11. СУДА ДЛЯ ПЕРЕВОЗКИ ТРАНСПОРТНЫХ СРЕДСТВ", ""),
+            ("12. РЫБОПРОМЫСЛОВЫЕ БАЗЫ, РЫБОТРАНСПОРТНЫЕ СУДА", ""),
+            ("13.1 РЫБОПРОМЫСЛОВЫЕ более 45 м", ""),
+            ("13.2 РЫБОПРОМЫСЛОВЫЕ менее 45 м", ""),
+            ("14. ПАССАЖИРСКИЕ И ПАССАЖИРСКИЕ БЕСКОЕЧНЫЕ", ""),
+            ("15. СУДА ОБЕСПЕЧЕНИЯ", ""),
+            ("16. БУКСИРЫ", ""),
+            ("17. ЗЕМСНАРЯДЫ И ЗЕМЛЕСОСЫ", ""),
+            ("18. РЕФРИЖЕРАТОРНЫЕ", ""),
+            ("19. ЛЕДОКОЛЫ", ""),
+            ("20. НАУЧНО-ИССЛЕДОВАТЕЛЬСКИЕ", ""),
+            ("21. ПРОЧИЕ", ""),
+            ("22. МАЛОМЕРНЫЕ, ПРОГУЛОЧНЫЕ", ""),
+            ("24. ПАРУСНЫЕ, УЧЕБНЫЕ", ""),
+        ]
+        repo = repos.VesselTypeRepository(session)
+        for name, desc in types_data:
+            repo.create_vessel_types(name, desc)
+
+        session.commit()
+        print("✔️ Таблица vessel_type заполнена данными")
+    except Exception as e:
+        session.rollback()
+        print(f"❌ Ошибка при заполнении vessel_type: {e}")
+        raise
+    finally:
+        session.close()
+# классификационное общество
+def seed_class_societys() -> None:
+    """
+    Наполняет таблицу class_societys начальными данными.
+    """
+    session = SessionLocal()
+    try:
+        # Список Классификационных обществ
+        types_data = [
+            ("01. РС", "Российский Морской Регистр Судоходства"),
+            ("02. РКО", "Российское Классификационное общество"),
+            ("03. Прочее", "Прочие Классификационные общества"),
+        ]
+        repo = repos.ClassSocietyRepository(session)
+        for name, desc in types_data:
+            repo.create_class_society_name(name, desc)
+
+        session.commit()
+        print("✔️ Таблица class_societys заполнена данными")
+    except Exception as e:
+        session.rollback()
+        print(f"❌ Ошибка при заполнении class_societys: {e}")
+        raise
+    finally:
+        session.close()
 
 if __name__ == "__main__":
+    seed_users()
+    seed_departments()
+    seed_roles()
+
     seed_proj_types()
-    seed_vessel_types()
-    seed_class_societys()
+
     seed_new_life_cycle()
+
     seed_refit_life_cycle()
     seed_proj_template()
+
+    seed_vessel_types()
+    seed_class_societys()

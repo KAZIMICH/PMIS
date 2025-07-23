@@ -4,9 +4,11 @@ logs/
 *.pyc
 *.pyo
 *.log
+/.git/
 /.idea/
 /idea/
 /.idea/
 /venv/
+/.venv/
 *application.log
 /build/

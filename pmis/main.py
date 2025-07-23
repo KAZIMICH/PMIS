@@ -1,8 +1,7 @@
+# pmis/main.py
 # Точка входа: запуск QApplication, чтение конфигов, старт главного окна
 from utils.logger import LoggerManager
 from init_proj.init_proj import InitProj
-
-
 
 class App:
     """

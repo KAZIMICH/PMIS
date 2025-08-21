@@ -6,7 +6,6 @@ from sqlalchemy import Table, Column, Integer, String, Text, Boolean, DateTime, 
 from sqlalchemy.orm import relationship
 from typing import Optional
 
-Base = declarative_base()  # 📍 Декларативная база для моделей
 
 # --- Ассоциативные таблицы для many-to-many ---
 user_departments = Table(
@@ -108,37 +107,24 @@ class ProjType(Base):
     def __repr__(self) -> str:
         return f"<ProjType(id={self.id}, proj_type_name={self.proj_type_name})>"
 
-# статусы проектов нового и переоборудования
-class NewProjStatus(Base):
+# статусы проекта
+class ProjStatus(Base):
     """
-    Статусы проекта нового судна.
+    Статусы проекта.
     """
-    __tablename__ = 'new_proj_status'
+    __tablename__ = 'proj_status'
 
     id: int = Column(Integer, primary_key=True, autoincrement=True)
-    new_proj_status_name: str = Column(String(100), nullable=False, unique=True, comment="Название статуса проекта нового судна")
-    description: str = Column(String(255), nullable=True, comment="Описание статуса проекта нового судна")
+    proj_status_name: str = Column(String(100), nullable=False, unique=True, comment="Название статуса")
+    description: str = Column(String(255), nullable=True, comment="Описание статуса")
 
     def __repr__(self) -> str:
-        return f"<NewProjStatus(id={self.id}, new_proj_status_name={self.new_proj_status_name})>"
+        return f"<ProjStatus(id={self.id}, proj_status_name={self.proj_status_name})>"
 
-class RefitProjStatus(Base):
-    """
-    Статусы проекта переоборудования.
-    """
-    __tablename__ = 'refit_proj_status'
-
-    id: int = Column(Integer, primary_key=True, autoincrement=True)
-    refit_proj_status_name: str = Column(String(100), nullable=False, unique=True, comment="Название статуса проекта переоборудования")
-    description: str = Column(String(255), nullable=True, comment="Описание статуса проекта переоборудования")
-
-    def __repr__(self) -> str:
-        return f"<RefitProjStatus(id={self.id}, refit_proj_status_name={self.refit_proj_status_name})>"
-
-# жизненный циклы проектов
+# жизненный цикл проекта нового судна
 class NewLifeCycle(Base):
     """
-    Жизненные циклы проекта нового судна.
+    Жизненный цикл проекта нового судна.
     """
     __tablename__ = 'new_life_cycle'
 
@@ -149,6 +135,7 @@ class NewLifeCycle(Base):
     def __repr__(self) -> str:
         return f"<NewLifeCycle(id={self.id}, new_life_cycle_name={self.new_life_cycle_name})>"
 
+# Жизненный цикл проекта переоборудования
 class RefitLifeCycle(Base):
     """
     Жизненные циклы проекта переоборудования.

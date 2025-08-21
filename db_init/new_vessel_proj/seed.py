@@ -1,10 +1,13 @@
-# db_init/init_db.py
-# Скрипт инициализации базы данных проекта через SQLite
+# db_init/seed.py
+# Скрипт наполнения базовых данных (seeding) 🌱
 
+import db_init.company.seed_company as company
+import db_init.seed_proj_attr as proj_attr
+import db_init.catalogs.seed_catalogs as catalogs
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from utils.logger import LoggerManager
-from db_init.models import Base  # 📂 Импорт декларативной базы моделей
+from db_init.new_vessel_proj.models import Base  # 📂 Импорт декларативной базы моделей
 from db_init.config import DATABASE_URL  # URL подключения к SQLite БД (файл)
 
 
@@ -57,5 +60,29 @@ class DBInitializer:
         self.logger.info("🎉 Инициализация SQLite БД завершена")
 
 
-if __name__ == "__main__":
+def run() -> None:
+    """
+    Инициирует таблицы, запускает все seed
+    """
     DBInitializer().run()
+
+    company.seed_users()
+    company.seed_departments()
+    company.seed_roles()
+
+    proj_attr.seed_proj_types()
+    proj_attr.seed_proj_status()
+    proj_attr.seed_new_life_cycle()
+    proj_attr.seed_refit_life_cycle()
+    proj_attr.seed_proj_template()
+
+    catalogs.seed_vessel_types()
+    catalogs.seed_class_societys()
+
+
+if __name__ == "__main__":
+    run()
+
+
+
+

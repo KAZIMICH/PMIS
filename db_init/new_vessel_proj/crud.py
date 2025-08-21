@@ -1,4 +1,4 @@
-# db_init/crud.py
+# db_init/crud_company.py
 # Реализация CRUD с использованием ООП и дженериков 🔧
 
 from typing import Type, TypeVar, Generic, Optional, List
@@ -6,7 +6,7 @@ from sqlalchemy import select, DateTime
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
 
-import db_init.models as model
+import db_init.new_vessel_proj.models as model
 
 # Определяем обобщённый тип модели
 ModelType = TypeVar('ModelType', bound=model.Base)
@@ -16,7 +16,6 @@ ModelType = TypeVar('ModelType', bound=model.Base)
 class BaseRepository(Generic[ModelType]):
     """
     Базовый репозиторий для общих операций CRUD.
-
     :param model: класс модели SQLAlchemy
     :param session: активная сессия SQLAlchemy
     """
@@ -66,7 +65,6 @@ class BaseRepository(Generic[ModelType]):
     def get_or_create(self, unique_field: str, value, **kwargs) -> ModelType:
         """
         Создаёт или обновляет запись по уникальному полю.
-
         :param unique_field: имя поля с уникальным ограничением
         :param value: значение уникального поля для поиска
         :param kwargs: дополнительные поля для создания или обновления
@@ -74,7 +72,9 @@ class BaseRepository(Generic[ModelType]):
         """
         existing = self.get_by_field(unique_field, value)
         if existing:
-            return self.update(existing, **kwargs)
+            # Удаляем из kwargs те ключи, где значение None, чтобы не затирать существующие значения
+            update_fields = {k: v for k, v in kwargs.items() if v is not None}
+            return self.update(existing, **update_fields)
         return self.create(**{unique_field: value}, **kwargs)
 
 
@@ -208,25 +208,25 @@ class ProjTypeRepository(BaseRepository[model.ProjType]):
         return self.get_or_create('proj_type_name', name, description=description)
 
 
-# статус проекта нового судна
-class NewProjStatusRepository(BaseRepository[model.NewProjStatus]):
-    """Репозиторий для работы с NewProjStatus"""
+# статус проекта
+class ProjStatusRepository(BaseRepository[model.ProjStatus]):
+    """Репозиторий для работы с ProjStatus"""
 
     def __init__(self, session: Session) -> None:
-        super().__init__(model.NewProjStatus, session)
+        super().__init__(model.ProjStatus, session)
 
-    def get_by_name(self, name: str) -> Optional[model.NewProjStatus]:
-        return self.get_by_field('new_proj_status_name', name)
+    def get_by_name(self, name: str) -> Optional[model.ProjStatus]:
+        return self.get_by_field('proj_status_name', name)
 
-    def create_new_proj_status(self, name: str, description: Optional[str] = None) -> model.NewProjStatus:
+    def create_proj_status(self, name: str, description: Optional[str] = None) -> model.ProjStatus:
         """
-        Создаёт новую запись или обновляет существующую в таблице new_proj_status.
+        Создаёт новую запись или обновляет существующую в таблице proj_status.
 
-        :param name: уникальное имя статуса проекта нового судна
-        :param description: описание статуса проекта нового судна
-        :return: объект NewProjStatus
+        :param name: уникальное имя статуса проекта
+        :param description: описание статуса проекта
+        :return: объект ProjStatus
         """
-        return self.get_or_create('new_proj_status_name', name, description=description)
+        return self.get_or_create('proj_status_name', name, description=description)
 
 
 # жизненный цикл проекта нового судна
@@ -248,27 +248,6 @@ class NewLifeCycleRepository(BaseRepository[model.NewLifeCycle]):
         :return: объект NewLifeCycle
         """
         return self.get_or_create('new_life_cycle_name', name, description=description)
-
-
-# статус проекта переоборудования
-class RefitProjStatusRepository(BaseRepository[model.RefitProjStatus]):
-    """Репозиторий для работы с RefitProjStatus"""
-
-    def __init__(self, session: Session) -> None:
-        super().__init__(model.RefitProjStatus, session)
-
-    def get_by_name(self, name: str) -> Optional[model.RefitProjStatus]:
-        return self.get_by_field('refit_proj_status_name', name)
-
-    def create_refit_proj_status(self, name: str, description: Optional[str] = None) -> model.RefitProjStatus:
-        """
-        Создаёт новую запись или обновляет существующую в таблице refit_proj_status.
-
-        :param name: уникальное имя статуса проекта переоборудования
-        :param description: описание статуса проекта переоборудования
-        :return: объект RefitProjStatus
-        """
-        return self.get_or_create('refit_proj_status_name', name, description=description)
 
 
 # жизненный цикл проекта переоборудования
